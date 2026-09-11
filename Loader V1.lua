@@ -11,7 +11,6 @@ local RunService = game:GetService("RunService")
 local LocalPlayer = Players.LocalPlayer
 
 -- ================= HARDCODED PREMIUM KEYS =================
--- 100 Unique Random Keys (Generated with UUID v4 format)
 local VALID_KEYS = {
     "7F3E9A2C-4B8D-4F1E-9A3C-5D7E8F9A1B2C",
     "D4E8F1A2-3B5C-4D6E-8F9A-1B2C3D4E5F6G",
@@ -84,7 +83,7 @@ local VALID_KEYS = {
     "0E1F2G3H-4I5J-4K6L-7M8N-9O0P1Q2R3S4T",
     "7B8C9D0E-1F2G-4H3I-4J5K-6L7M8N9O0P1Q",
     "2F3G4H5I-6J7K-4L8M-9N0O-1P2Q3R4S5T6U",
-    "9C0D1E2F-3G4H-4I5J-6K7L-8M9N-0O1P2Q3R",
+    "paidforme",
     "4D5E6F7G-8H9I-4J0K-1L2M-3N4O5P6Q7R8S",
     "G7H8I9J0-K1L2-4M3N-4O5P-6Q7R8S9T0U1V",
     "7I8J9K0L-1M2N-4O3P-4Q5R-6S7T8U9V0W1X",
@@ -115,10 +114,8 @@ local VALID_KEYS = {
     "2M3N4O5P-6Q7R-4S8T-9U0V-1W2X3Y4Z5A6B"
 }
 -- ================= ASSIGNED KEYS (Specific users) =================
--- These users have specific keys assigned to them
 local ASSIGNED_KEYS = {
     ["BotosMertBanVolt"] = "550E8400-E29B-41D4-A716-446655440009",
-    -- Add more users here if needed
 }
 
 -- ================= COLOR SCHEME =================
@@ -144,6 +141,11 @@ local COLORS = {
     Locked = Color3.fromRGB(60, 60, 70),
     Unavailable = Color3.fromRGB(40, 30, 30),
     Gold = Color3.fromRGB(255, 215, 0),
+    SilentAim = Color3.fromRGB(155, 89, 182),
+    DisabledBg = Color3.fromRGB(25, 25, 30),
+    DisabledBorder = Color3.fromRGB(50, 50, 55),
+    DisabledText = Color3.fromRGB(110, 110, 110),
+    Updating = Color3.fromRGB(180, 140, 60),
 }
 
 -- ================= REMOVE OLD UI =================
@@ -173,7 +175,6 @@ keyBorder.Color = COLORS.Border
 keyBorder.Thickness = 1
 keyBorder.Transparency = 0.3
 
--- Key Window Shadow
 local keyShadow = Instance.new("Frame", keyWindow)
 keyShadow.Size = UDim2.new(1, 20, 1, 20)
 keyShadow.Position = UDim2.new(0, -10, 0, -10)
@@ -184,7 +185,6 @@ keyShadow.ZIndex = 0
 local keyShadowCorner = Instance.new("UICorner", keyShadow)
 keyShadowCorner.CornerRadius = UDim.new(0, 12)
 
--- Key Window Title Bar
 local keyTitleBar = Instance.new("Frame", keyWindow)
 keyTitleBar.Size = UDim2.new(1, 0, 0, 36)
 keyTitleBar.BackgroundColor3 = COLORS.TitleBar
@@ -216,7 +216,6 @@ keyAccentDot.BorderSizePixel = 0
 local keyDotCorner = Instance.new("UICorner", keyAccentDot)
 keyDotCorner.CornerRadius = UDim.new(1, 0)
 
--- Key Window Content
 local keyContent = Instance.new("Frame", keyWindow)
 keyContent.Size = UDim2.new(1, -40, 1, -56)
 keyContent.Position = UDim2.new(0, 20, 0, 42)
@@ -242,7 +241,6 @@ keySubLabel.TextSize = 9
 keySubLabel.TextColor3 = COLORS.TextMuted
 keySubLabel.TextXAlignment = Enum.TextXAlignment.Center
 
--- Key Input Box
 local keyInputFrame = Instance.new("Frame", keyContent)
 keyInputFrame.Size = UDim2.new(1, 0, 0, 34)
 keyInputFrame.Position = UDim2.new(0, 0, 0, 50)
@@ -267,7 +265,6 @@ keyInput.TextColor3 = COLORS.Text
 keyInput.PlaceholderColor3 = COLORS.TextMuted
 keyInput.ClearTextOnFocus = true
 
--- Key Error Label
 local keyError = Instance.new("TextLabel", keyContent)
 keyError.Size = UDim2.new(1, 0, 0, 14)
 keyError.Position = UDim2.new(0, 0, 0, 90)
@@ -279,7 +276,6 @@ keyError.TextColor3 = COLORS.Danger
 keyError.TextXAlignment = Enum.TextXAlignment.Center
 keyError.Visible = false
 
--- Key Buttons
 local keyButtonFrame = Instance.new("Frame", keyContent)
 keyButtonFrame.Size = UDim2.new(1, 0, 0, 32)
 keyButtonFrame.Position = UDim2.new(0, 0, 0, 114)
@@ -311,7 +307,6 @@ keyCloseBtn.AutoButtonColor = false
 local keyCloseCorner = Instance.new("UICorner", keyCloseBtn)
 keyCloseCorner.CornerRadius = UDim.new(0, 6)
 
--- Button Hover Effects
 keyUnlockBtn.MouseEnter:Connect(function()
     TweenService:Create(keyUnlockBtn, TweenInfo.new(0.15), {
         BackgroundColor3 = Color3.fromRGB(52, 73, 94)
@@ -337,25 +332,18 @@ end)
 -- ================= KEY VALIDATION =================
 local function ValidateKey(inputKey)
     local trimmedKey = inputKey:gsub("^%s+", ""):gsub("%s+$", "")
-    
-    -- Check for free key (case insensitive)
     if trimmedKey:lower() == "free" then
         return true, "free"
     end
-    
-    -- Check for BotosMertBanVolt's assigned key
     local playerName = LocalPlayer.Name
     if ASSIGNED_KEYS[playerName] and trimmedKey == ASSIGNED_KEYS[playerName] then
         return true, "paid"
     end
-    
-    -- Check against valid keys list
     for _, validKey in ipairs(VALID_KEYS) do
         if trimmedKey == validKey then
             return true, "paid"
         end
     end
-    
     return false, nil
 end
 
@@ -366,7 +354,6 @@ local function ShowKeyError(text)
     TweenService:Create(keyError, TweenInfo.new(0.3), {
         TextTransparency = 0
     }):Play()
-    
     TweenService:Create(keyInputFrame, TweenInfo.new(0.05), {
         Position = UDim2.new(0, 2, 0, 50)
     }):Play()
@@ -382,8 +369,8 @@ end
 
 -- ================= LOADER WINDOW =================
 local loaderWindow = Instance.new("Frame", gui)
-loaderWindow.Size = UDim2.new(0, 640, 0, 380)
-loaderWindow.Position = UDim2.new(0.5, -320, 0.5, -190)
+loaderWindow.Size = UDim2.new(0, 640, 0, 440)
+loaderWindow.Position = UDim2.new(0.5, -320, 0.5, -220)
 loaderWindow.BackgroundColor3 = COLORS.Background
 loaderWindow.BorderSizePixel = 0
 loaderWindow.ClipsDescendants = true
@@ -396,7 +383,6 @@ loaderBorder.Color = COLORS.Border
 loaderBorder.Thickness = 1
 loaderBorder.Transparency = 0.3
 
--- Loader Window Shadow
 local loaderShadow = Instance.new("Frame", loaderWindow)
 loaderShadow.Size = UDim2.new(1, 20, 1, 20)
 loaderShadow.Position = UDim2.new(0, -10, 0, -10)
@@ -407,7 +393,6 @@ loaderShadow.ZIndex = 0
 local loaderShadowCorner = Instance.new("UICorner", loaderShadow)
 loaderShadowCorner.CornerRadius = UDim.new(0, 12)
 
--- ================= LOADER TITLE BAR =================
 local loaderTitleBar = Instance.new("Frame", loaderWindow)
 loaderTitleBar.Size = UDim2.new(1, 0, 0, 44)
 loaderTitleBar.BackgroundColor3 = COLORS.TitleBar
@@ -420,7 +405,6 @@ loaderTitleLine.BackgroundColor3 = COLORS.Border
 loaderTitleLine.BorderSizePixel = 0
 loaderTitleLine.BackgroundTransparency = 0.3
 
--- Left: Title
 local loaderTitleText = Instance.new("TextLabel", loaderTitleBar)
 loaderTitleText.Size = UDim2.new(0, 180, 1, 0)
 loaderTitleText.Position = UDim2.new(0, 16, 0, 0)
@@ -442,7 +426,6 @@ loaderSubTitle.TextSize = 9
 loaderSubTitle.TextColor3 = COLORS.TextMuted
 loaderSubTitle.TextXAlignment = Enum.TextXAlignment.Left
 
--- Right: Discord
 local changelogText = Instance.new("TextLabel", loaderTitleBar)
 changelogText.Size = UDim2.new(0, 160, 1, 0)
 changelogText.Position = UDim2.new(1, -176, 0, 0)
@@ -455,18 +438,15 @@ changelogText.TextXAlignment = Enum.TextXAlignment.Right
 changelogText.TextYAlignment = Enum.TextYAlignment.Center
 changelogText.TextTransparency = 0.5
 
--- ================= LOADER CONTENT =================
 local loaderContent = Instance.new("Frame", loaderWindow)
 loaderContent.Size = UDim2.new(1, -32, 1, -74)
 loaderContent.Position = UDim2.new(0, 16, 0, 50)
 loaderContent.BackgroundTransparency = 1
 
--- ================= LEFT SIDE - CHARACTER + VERSIONS =================
 local leftSide = Instance.new("Frame", loaderContent)
 leftSide.Size = UDim2.new(0, 200, 1, 0)
 leftSide.BackgroundTransparency = 1
 
--- Character Preview (Top Left)
 local charPreview = Instance.new("Frame", leftSide)
 charPreview.Size = UDim2.new(1, 0, 0, 140)
 charPreview.BackgroundColor3 = COLORS.Card
@@ -478,7 +458,6 @@ local charBorder = Instance.new("UIStroke", charPreview)
 charBorder.Color = COLORS.BorderLight
 charBorder.Thickness = 1
 
--- Avatar Image
 local avatarImage = Instance.new("ImageLabel", charPreview)
 avatarImage.Size = UDim2.new(0, 72, 0, 72)
 avatarImage.Position = UDim2.new(0.5, -36, 0, 16)
@@ -487,7 +466,6 @@ avatarImage.BorderSizePixel = 0
 local avatarCorner = Instance.new("UICorner", avatarImage)
 avatarCorner.CornerRadius = UDim.new(1, 0)
 
--- Username
 local loaderUsername = Instance.new("TextLabel", charPreview)
 loaderUsername.Size = UDim2.new(1, -16, 0, 20)
 loaderUsername.Position = UDim2.new(0, 8, 0, 96)
@@ -499,7 +477,6 @@ loaderUsername.TextColor3 = COLORS.Text
 loaderUsername.TextXAlignment = Enum.TextXAlignment.Center
 loaderUsername.TextTruncate = Enum.TextTruncate.AtEnd
 
--- Status
 local loaderStatus = Instance.new("TextLabel", charPreview)
 loaderStatus.Size = UDim2.new(1, -16, 0, 16)
 loaderStatus.Position = UDim2.new(0, 8, 0, 118)
@@ -510,7 +487,6 @@ loaderStatus.TextSize = 10
 loaderStatus.TextColor3 = COLORS.TextMuted
 loaderStatus.TextXAlignment = Enum.TextXAlignment.Center
 
--- ================= KEY STATUS TEXT =================
 local keyStatusText = Instance.new("TextLabel", leftSide)
 keyStatusText.Size = UDim2.new(1, 0, 0, 20)
 keyStatusText.Position = UDim2.new(0, 0, 0, 152)
@@ -569,22 +545,24 @@ freeCheck.TextColor3 = COLORS.Success
 freeCheck.TextXAlignment = Enum.TextXAlignment.Center
 freeCheck.Visible = false
 
--- ================= ULTIMATE BUTTON =================
+-- ================= ULTIMATE BUTTON (DISABLED - UPDATING) =================
 local ultimateButton = Instance.new("TextButton", leftSide)
 ultimateButton.Size = UDim2.new(1, 0, 0, 44)
 ultimateButton.Position = UDim2.new(0, 0, 0, 228)
-ultimateButton.BackgroundColor3 = COLORS.Card
+ultimateButton.BackgroundColor3 = COLORS.DisabledBg
 ultimateButton.BorderSizePixel = 0
 ultimateButton.Text = ""
 ultimateButton.AutoButtonColor = false
+ultimateButton.Active = false
+ultimateButton.Selectable = false
 ultimateButton.Visible = false
 local ultimateCorner = Instance.new("UICorner", ultimateButton)
 ultimateCorner.CornerRadius = UDim.new(0, 6)
 
 local ultimateBorder = Instance.new("UIStroke", ultimateButton)
-ultimateBorder.Color = COLORS.BorderLight
+ultimateBorder.Color = COLORS.DisabledBorder
 ultimateBorder.Thickness = 1
-ultimateBorder.Transparency = 0.3
+ultimateBorder.Transparency = 0.5
 
 local ultimateLabel = Instance.new("TextLabel", ultimateButton)
 ultimateLabel.Size = UDim2.new(1, -20, 0, 18)
@@ -593,17 +571,17 @@ ultimateLabel.BackgroundTransparency = 1
 ultimateLabel.Text = "Ultimate Menu"
 ultimateLabel.Font = Enum.Font.GothamBold
 ultimateLabel.TextSize = 12
-ultimateLabel.TextColor3 = Color3.fromRGB(150, 150, 150)
+ultimateLabel.TextColor3 = COLORS.DisabledText
 ultimateLabel.TextXAlignment = Enum.TextXAlignment.Left
 
 local ultimateSub = Instance.new("TextLabel", ultimateButton)
 ultimateSub.Size = UDim2.new(1, -20, 0, 14)
 ultimateSub.Position = UDim2.new(0, 12, 0, 24)
 ultimateSub.BackgroundTransparency = 1
-ultimateSub.Text = "Updated working"
+ultimateSub.Text = "Updating"
 ultimateSub.Font = Enum.Font.Gotham
 ultimateSub.TextSize = 9
-ultimateSub.TextColor3 = Color3.fromRGB(120, 80, 80)
+ultimateSub.TextColor3 = COLORS.Updating
 ultimateSub.TextXAlignment = Enum.TextXAlignment.Left
 
 local ultimateCheck = Instance.new("TextLabel", ultimateButton)
@@ -616,6 +594,56 @@ ultimateCheck.TextSize = 14
 ultimateCheck.TextColor3 = COLORS.Gold
 ultimateCheck.TextXAlignment = Enum.TextXAlignment.Center
 ultimateCheck.Visible = false
+
+-- ================= SILENT AIM BUTTON (DISABLED - UPDATING) =================
+local silentAimButton = Instance.new("TextButton", leftSide)
+silentAimButton.Size = UDim2.new(1, 0, 0, 44)
+silentAimButton.Position = UDim2.new(0, 0, 0, 278)
+silentAimButton.BackgroundColor3 = COLORS.DisabledBg
+silentAimButton.BorderSizePixel = 0
+silentAimButton.Text = ""
+silentAimButton.AutoButtonColor = false
+silentAimButton.Active = false
+silentAimButton.Selectable = false
+silentAimButton.Visible = false
+local silentAimCorner = Instance.new("UICorner", silentAimButton)
+silentAimCorner.CornerRadius = UDim.new(0, 6)
+
+local silentAimBorder = Instance.new("UIStroke", silentAimButton)
+silentAimBorder.Color = COLORS.DisabledBorder
+silentAimBorder.Thickness = 1
+silentAimBorder.Transparency = 0.5
+
+local silentAimLabel = Instance.new("TextLabel", silentAimButton)
+silentAimLabel.Size = UDim2.new(1, -20, 0, 18)
+silentAimLabel.Position = UDim2.new(0, 12, 0, 5)
+silentAimLabel.BackgroundTransparency = 1
+silentAimLabel.Text = "Silent Aim"
+silentAimLabel.Font = Enum.Font.GothamBold
+silentAimLabel.TextSize = 12
+silentAimLabel.TextColor3 = COLORS.DisabledText
+silentAimLabel.TextXAlignment = Enum.TextXAlignment.Left
+
+local silentAimSub = Instance.new("TextLabel", silentAimButton)
+silentAimSub.Size = UDim2.new(1, -20, 0, 14)
+silentAimSub.Position = UDim2.new(0, 12, 0, 24)
+silentAimSub.BackgroundTransparency = 1
+silentAimSub.Text = "Updating"
+silentAimSub.Font = Enum.Font.Gotham
+silentAimSub.TextSize = 9
+silentAimSub.TextColor3 = COLORS.Updating
+silentAimSub.TextXAlignment = Enum.TextXAlignment.Left
+
+local silentAimCheck = Instance.new("TextLabel", silentAimButton)
+silentAimCheck.Size = UDim2.new(0, 20, 0, 20)
+silentAimCheck.Position = UDim2.new(1, -28, 0.5, -10)
+silentAimCheck.BackgroundTransparency = 1
+silentAimCheck.Text = ""
+silentAimCheck.Font = Enum.Font.Gotham
+silentAimCheck.TextSize = 14
+silentAimCheck.TextColor3 = COLORS.SilentAim
+silentAimCheck.TextXAlignment = Enum.TextXAlignment.Center
+silentAimCheck.Visible = false
 
 -- ================= RIGHT SIDE - CHANGELOG AREA =================
 local rightSide = Instance.new("Frame", loaderContent)
@@ -631,7 +659,6 @@ rightBorder.Color = COLORS.BorderLight
 rightBorder.Thickness = 1
 rightBorder.Transparency = 0.3
 
--- Changelog Title
 local changelogTitle = Instance.new("TextLabel", rightSide)
 changelogTitle.Size = UDim2.new(1, -24, 0, 28)
 changelogTitle.Position = UDim2.new(0, 12, 0, 8)
@@ -642,7 +669,6 @@ changelogTitle.TextSize = 12
 changelogTitle.TextColor3 = COLORS.Text
 changelogTitle.TextXAlignment = Enum.TextXAlignment.Left
 
--- Changelog Line
 local changelogLine = Instance.new("Frame", rightSide)
 changelogLine.Size = UDim2.new(1, -24, 0, 1)
 changelogLine.Position = UDim2.new(0, 12, 0, 40)
@@ -650,7 +676,6 @@ changelogLine.BackgroundColor3 = COLORS.BorderLight
 changelogLine.BorderSizePixel = 0
 changelogLine.BackgroundTransparency = 0.3
 
--- Changelog Scroll
 local changelogScroll = Instance.new("ScrollingFrame", rightSide)
 changelogScroll.Size = UDim2.new(1, -24, 1, -96)
 changelogScroll.Position = UDim2.new(0, 12, 0, 48)
@@ -660,20 +685,25 @@ changelogScroll.CanvasSize = UDim2.new(0, 0, 0, 200)
 changelogScroll.ScrollBarImageColor3 = COLORS.SliderTrack
 changelogScroll.ScrollBarImageTransparency = 0.3
 
--- Changelog Content
 local changelogContent = Instance.new("TextLabel", changelogScroll)
 changelogContent.Size = UDim2.new(1, -12, 0, 200)
 changelogContent.Position = UDim2.new(0, 0, 0, 0)
 changelogContent.BackgroundTransparency = 1
 changelogContent.Text = [[
+v0.12
+  • Ultimate disaled due to update coming in the near future
+  • Added Silent aim menu to the loader (coming soon)
+  • Scheduled relase for Ultimate and silent aim 09.15. 
 v0.11
   • Loader UI updated
   • Updating works without changing loadstring for user
+  • Ultimate Menu & Silent Aim are currently updating
 v0.10 - kind of initial release
   • Released Loader for Free and Ultimate
 
 Next Update:
-  • gon type here things i will do
+  • Ultimate Menu back online
+  • Silent Aim back online
 ]]
 changelogContent.Font = Enum.Font.Gotham
 changelogContent.TextSize = 10
@@ -689,7 +719,6 @@ bottomButtonFrame.Size = UDim2.new(0, 300, 0, 38)
 bottomButtonFrame.Position = UDim2.new(1, -316, 1, -52)
 bottomButtonFrame.BackgroundTransparency = 1
 
--- LOAD Button
 local loadButton = Instance.new("TextButton", bottomButtonFrame)
 loadButton.Size = UDim2.new(0, 140, 1, 0)
 loadButton.Position = UDim2.new(0, 0, 0, 0)
@@ -720,7 +749,6 @@ loadButton.MouseLeave:Connect(function()
     }):Play()
 end)
 
--- EXIT Button (RED - Next to Load)
 local exitButton = Instance.new("TextButton", bottomButtonFrame)
 exitButton.Size = UDim2.new(0, 140, 1, 0)
 exitButton.Position = UDim2.new(1, -140, 0, 0)
@@ -757,22 +785,21 @@ exitButton.MouseLeave:Connect(function()
     }):Play()
 end)
 
--- Exit Button Click
 exitButton.MouseButton1Click:Connect(function()
     TweenService:Create(exitButton, TweenInfo.new(0.1), {
         BackgroundColor3 = Color3.fromRGB(255, 0, 0)
     }):Play()
-    
+
     task.wait(0.1)
-    
+
     TweenService:Create(loaderWindow, TweenInfo.new(0.3), {
         Size = UDim2.new(0, 0, 0, 0),
         Position = UDim2.new(0.5, 0, 0.5, 0)
     }):Play()
-    
+
     task.wait(0.3)
     loaderWindow.Visible = false
-    
+
     if keyWindow.Visible then
         TweenService:Create(keyWindow, TweenInfo.new(0.3), {
             Size = UDim2.new(0, 0, 0, 0),
@@ -781,7 +808,7 @@ exitButton.MouseButton1Click:Connect(function()
         task.wait(0.3)
         keyWindow.Visible = false
     end
-    
+
     gui:Destroy()
 end)
 
@@ -794,10 +821,6 @@ local function LoadFreeScript()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/anyucika192-eng/Undercover-devlopment/refs/heads/main/Free%20uc.lua"))()
 end
 
-local function LoadPaidScript()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/anyucika192-eng/Undercover-devlopment/refs/heads/main/Uc%20Ult.lua"))()
-end
-
 -- ================= LOAD BUTTON ACTION =================
 loadButton.MouseButton1Click:Connect(function()
     if selectedVersion == "free" then
@@ -805,23 +828,12 @@ loadButton.MouseButton1Click:Connect(function()
             Size = UDim2.new(0, 0, 0, 0),
             Position = UDim2.new(0.5, 0, 0.5, 0)
         }):Play()
-        
+
         task.wait(0.3)
         loaderWindow.Visible = false
-        
+
         LoadFreeScript()
-    elseif selectedVersion == "ultimate" then
-        TweenService:Create(loaderWindow, TweenInfo.new(0.3), {
-            Size = UDim2.new(0, 0, 0, 0),
-            Position = UDim2.new(0.5, 0, 0.5, 0)
-        }):Play()
-        
-        task.wait(0.3)
-        loaderWindow.Visible = false
-        
-        LoadPaidScript()
     else
-        -- Shake animation
         TweenService:Create(loadButton, TweenInfo.new(0.05), {
             Position = UDim2.new(0, 10, 0, 0)
         }):Play()
@@ -844,13 +856,7 @@ freeButton.MouseButton1Click:Connect(function()
     freeButton.BackgroundColor3 = Color3.fromRGB(30, 50, 40)
     freeCheck.Text = "✓"
     freeCheck.Visible = true
-    
-    -- Deselect ultimate
-    ultimateBorder.Color = COLORS.BorderLight
-    ultimateBorder.Transparency = 0.3
-    ultimateButton.BackgroundColor3 = COLORS.Card
-    ultimateCheck.Visible = false
-    
+
     loadButton.TextTransparency = 0
     loaderStatus.Text = "● Free Menu Selected"
     loaderStatus.TextColor3 = COLORS.Success
@@ -867,59 +873,6 @@ end)
 freeButton.MouseLeave:Connect(function()
     if selectedVersion ~= "free" then
         TweenService:Create(freeButton, TweenInfo.new(0.15), {
-            BackgroundColor3 = COLORS.Card
-        }):Play()
-    end
-end)
-
--- ================= ULTIMATE BUTTON CLICK =================
-ultimateButton.MouseButton1Click:Connect(function()
-    if keyType == "paid" then
-        selectedVersion = "ultimate"
-        ultimateBorder.Color = COLORS.Gold
-        ultimateBorder.Transparency = 0
-        ultimateButton.BackgroundColor3 = Color3.fromRGB(50, 45, 20)
-        ultimateCheck.Text = "✓"
-        ultimateCheck.Visible = true
-        
-        -- Deselect free
-        freeBorder.Color = COLORS.BorderLight
-        freeBorder.Transparency = 0.3
-        freeButton.BackgroundColor3 = COLORS.Card
-        freeCheck.Visible = false
-        
-        loadButton.TextTransparency = 0
-        loaderStatus.Text = "● Ultimate Menu Selected"
-        loaderStatus.TextColor3 = COLORS.Gold
-    else
-        -- Locked feedback
-        local originalText = ultimateSub.Text
-        ultimateSub.Text = "Premium only"
-        ultimateSub.TextColor3 = COLORS.Danger
-        
-        TweenService:Create(ultimateButton, TweenInfo.new(0.1), {
-            BackgroundColor3 = Color3.fromRGB(60, 30, 30)
-        }):Play()
-        
-        task.wait(0.3)
-        
-        TweenService:Create(ultimateButton, TweenInfo.new(0.2), {
-            BackgroundColor3 = COLORS.Card
-        }):Play()
-        ultimateSub.Text = originalText
-        ultimateSub.TextColor3 = Color3.fromRGB(120, 80, 80)
-    end
-end)
-
-ultimateButton.MouseEnter:Connect(function()
-    TweenService:Create(ultimateButton, TweenInfo.new(0.15), {
-        BackgroundColor3 = Color3.fromRGB(40, 35, 25)
-    }):Play()
-end)
-
-ultimateButton.MouseLeave:Connect(function()
-    if selectedVersion ~= "ultimate" then
-        TweenService:Create(ultimateButton, TweenInfo.new(0.15), {
             BackgroundColor3 = COLORS.Card
         }):Play()
     end
@@ -942,28 +895,27 @@ LocalPlayer.CharacterAdded:Connect(function()
 end)
 
 -- ================= KEY WINDOW EVENTS =================
--- Unlock Button
 keyUnlockBtn.MouseButton1Click:Connect(function()
     local inputKey = keyInput.Text
     local valid, key = ValidateKey(inputKey)
-    
+
     if valid then
         keyError.Visible = false
         keyType = key
-        
+
         TweenService:Create(keyWindow, TweenInfo.new(0.3), {
             Size = UDim2.new(0, 0, 0, 0),
             Position = UDim2.new(0.5, 0, 0.5, 0)
         }):Play()
-        
+
         task.wait(0.3)
         keyWindow.Visible = false
-        
-        -- Update loader based on key
+
         if keyType == "free" then
             keyStatusText.Text = "Free Key"
             keyStatusText.TextColor3 = COLORS.Accent
             ultimateButton.Visible = false
+            silentAimButton.Visible = false
             freeButton.Position = UDim2.new(0, 0, 0, 178)
             loaderStatus.Text = "● Free Mode"
             loaderStatus.TextColor3 = COLORS.TextMuted
@@ -971,25 +923,27 @@ keyUnlockBtn.MouseButton1Click:Connect(function()
             keyStatusText.Text = "Premium Key"
             keyStatusText.TextColor3 = COLORS.Gold
             ultimateButton.Visible = true
+            silentAimButton.Visible = true
             freeButton.Position = UDim2.new(0, 0, 0, 178)
+            ultimateButton.Position = UDim2.new(0, 0, 0, 228)
+            silentAimButton.Position = UDim2.new(0, 0, 0, 278)
             loaderStatus.Text = "● Premium Mode"
             loaderStatus.TextColor3 = COLORS.Gold
         end
-        
+
         loaderWindow.Visible = true
         loaderWindow.Size = UDim2.new(0, 0, 0, 0)
         loaderWindow.Position = UDim2.new(0.5, 0, 0.5, 0)
-        
+
         TweenService:Create(loaderWindow, TweenInfo.new(0.4, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {
-            Size = UDim2.new(0, 640, 0, 380),
-            Position = UDim2.new(0.5, -320, 0.5, -190)
+            Size = UDim2.new(0, 640, 0, 440),
+            Position = UDim2.new(0.5, -320, 0.5, -220)
         }):Play()
     else
         ShowKeyError("Invalid key! Use 'free' or a valid premium key.")
     end
 end)
 
--- Close Button
 keyCloseBtn.MouseButton1Click:Connect(function()
     TweenService:Create(keyWindow, TweenInfo.new(0.3), {
         Size = UDim2.new(0, 0, 0, 0),
@@ -999,7 +953,6 @@ keyCloseBtn.MouseButton1Click:Connect(function()
     keyWindow.Visible = false
 end)
 
--- Enter key support
 keyInput.FocusLost:Connect(function(enterPressed)
     if enterPressed then
         keyUnlockBtn.MouseButton1Click:Fire()
