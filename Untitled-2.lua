@@ -277,33 +277,7 @@ subText.TextColor3 = COLORS.PremiumGold
 subText.TextXAlignment = Enum.TextXAlignment.Left
 subText.Parent = titleBar
 
-local premiumBadge = Instance.new("TextLabel")
-premiumBadge.Size = UDim2.new(0, 62, 0, 16)
-premiumBadge.Position = UDim2.new(1, -104, 0.5, -8)
-premiumBadge.BackgroundColor3 = COLORS.Accent
-premiumBadge.BackgroundTransparency = 0.3
-premiumBadge.BorderSizePixel = 0
-premiumBadge.Text = "PREMIUM"
-premiumBadge.Font = Enum.Font.GothamBold
-premiumBadge.TextSize = 8
-premiumBadge.TextColor3 = COLORS.PremiumGold
-premiumBadge.Parent = titleBar
-Instance.new("UICorner", premiumBadge).CornerRadius = UDim.new(0, 4)
-
-local closeDot = Instance.new("TextButton")
-closeDot.Size = UDim2.new(0, 26, 0, 26)
-closeDot.Position = UDim2.new(1, -34, 0.5, -13)
-closeDot.BackgroundColor3 = COLORS.Button
-closeDot.BorderSizePixel = 0
-closeDot.Text = "—"
-closeDot.Font = Enum.Font.GothamBold
-closeDot.TextSize = 13
-closeDot.TextColor3 = COLORS.TextSecondary
-closeDot.AutoButtonColor = false
-closeDot.Parent = titleBar
-Instance.new("UICorner", closeDot).CornerRadius = UDim.new(0, 7)
-closeDot.MouseEnter:Connect(function() tw(closeDot, 0.12, Enum.EasingStyle.Sine, Enum.EasingDirection.Out, {BackgroundColor3 = COLORS.CardHover}) end)
-closeDot.MouseLeave:Connect(function() tw(closeDot, 0.12, Enum.EasingStyle.Sine, Enum.EasingDirection.Out, {BackgroundColor3 = COLORS.Button}) end)
+-- [REMOVED] Premium badge was here
 
 -- ================= DRAGGING (menu) =================
 do
@@ -939,8 +913,6 @@ function setMenuVisible(show)
     end
 end
 
-closeDot.MouseButton1Click:Connect(function() setMenuVisible(false) end)
-
 UserInputService.InputBegan:Connect(function(input, gameProcessed)
     if gameProcessed then return end
     if input.KeyCode == Configuration.ToggleKey then
@@ -1508,6 +1480,32 @@ function Library:CreateTab(name, icon)
         return card
     end
 
+    function Tab:AddTextLabel(text)
+        local card = baseCard(0)
+        card.AutomaticSize = Enum.AutomaticSize.Y
+
+        local lbl = Instance.new("TextLabel")
+        lbl.Size = UDim2.new(1, -20, 0, 0)
+        lbl.Position = UDim2.new(0, 12, 0, 10)
+        lbl.BackgroundTransparency = 1
+        lbl.Text = text
+        lbl.Font = Enum.Font.Gotham
+        lbl.TextSize = 11
+        lbl.TextColor3 = COLORS.TextSecondary
+        lbl.TextXAlignment = Enum.TextXAlignment.Left
+        lbl.TextYAlignment = Enum.TextYAlignment.Top
+        lbl.TextWrapped = true
+        lbl.AutomaticSize = Enum.AutomaticSize.Y
+        lbl.Parent = card
+
+        card.Size = UDim2.new(1, 0, 0, 10 + lbl.TextBounds.Y + 10)
+        lbl:GetPropertyChangedSignal("TextBounds"):Connect(function()
+            card.Size = UDim2.new(1, 0, 0, 10 + lbl.TextBounds.Y + 10)
+        end)
+
+        return card
+    end
+
     Library.Tabs[#Library.Tabs + 1] = Tab
     return Tab
 end
@@ -1669,13 +1667,11 @@ visualsTab:AddSlider("ESP Thickness", 1, 5, PreviewState.ESPThickness, function(
     PreviewState.ESPThickness = v
 end)
 
-visualsTab:AddSection("Background")
-visualsTab:AddToggle("Snowfall Background", false, function(v)
-    setSnowMode(v)
-end)
+-- [MOVED] Snowfall Background toggle was here; now in Settings
 
 -- ================= SETTINGS TAB =================
 local settingsTab = Library:CreateTab("Settings", "")
+
 settingsTab:AddSection("UI Settings")
 settingsTab:AddKeybind("Menu Toggle", Configuration.ToggleKey, function(v)
     Configuration.ToggleKey = v
@@ -1692,6 +1688,14 @@ settingsTab:AddButton("Reset Preview Position", function()
         )
     end
 end)
+
+settingsTab:AddSection("Background")
+settingsTab:AddToggle("Snowfall Background", false, function(v)
+    setSnowMode(v)
+end)
+
+settingsTab:AddSection("About")
+settingsTab:AddTextLabel("UNDERCOVER ULTIMATE\n\nDevelopers:\n• Lead Developer — lakatosafapados\n• UI Designer — lakatosafapados,Claude\n\n\nSpecial Thanks:\n• Every Github source i pasted from\n• All testers and supporters\n\nUndercover - Be the best in your lobby.")
 
 -- ================================================
 --   FEATURE IMPLEMENTATION
