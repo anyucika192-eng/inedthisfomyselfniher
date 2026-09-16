@@ -727,31 +727,24 @@ changelogContent.Position = UDim2.new(0, 0, 0, 0)
 changelogContent.BackgroundTransparency = 1
 changelogContent.Text = [[
 Next update:
-Loader UI overhaul
-Relase of silent aim
+Relase
 v0.13
   • Ultimate menu updated and enabled
      UI overhaul
      Removed loading screen (menu appears right away, features activate after a few seconds - known issue)
      Improved performance
-     Silent Aim menu (Universal) set to release in a few days
+     Silent Aim menu (Universal) started working on
 
 v0.12
-  • Ultimate disabled due to upcoming update
   • Added Silent Aim menu to the loader (coming soon)
-  • Scheduled release for Ultimate and Silent Aim: 09.15
 
 v0.11
   • Loader UI updated
   • Updating works without changing loadstring for user
-  • Ultimate Menu & Silent Aim currently updating
 
-v0.10 - Initial Release
-  • Released Loader for Free and Ultimate
+v0.10 
+  • Released Loader works as intented
 
-Next Update:
-  • Silent Aim release
-  • Loader UI update
 ]]
 changelogContent.Font = Enum.Font.Gotham
 changelogContent.TextSize = 12
