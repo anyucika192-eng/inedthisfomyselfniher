@@ -1,6 +1,6 @@
 --==================================================
--- Undercover Slotted - Loader System v3.3
--- HARDCODED KEYS - Premium & Free Support
+-- Undercover Slotted - Loader System v3.4
+-- HARDCODED KEYS - Premium Support Only
 --==================================================
 
 -- SERVICES
@@ -10,110 +10,12 @@ local TweenService = game:GetService("TweenService")
 local RunService = game:GetService("RunService")
 local LocalPlayer = Players.LocalPlayer
 
--- ================= HARDCODED PREMIUM KEYS =================
--- 100 Unique Random Keys (Generated with UUID v4 format)
+-- ================= HARDCODED KEYS =================
 local VALID_KEYS = {
-    "7F3E9A2C-4B8D-4F1E-9A3C-5D7E8F9A1B2C",
-    "D4E8F1A2-3B5C-4D6E-8F9A-1B2C3D4E5F6G",
     "A1B2C3D4-E5F6-4A7B-8C9D-0E1F2A3B4C5D",
-    "F9E8D7C6-B5A4-4F3E-2D1C-0B9A8F7E6D5C",
-    "3C4D5E6F-7A8B-4C9D-0E1F-2A3B4C5D6E7F",
-    "8B7C6D5E-4F3A-4B2C-1D0E-9F8E7D6C5B4A",
-    "E5F6G7H8-I9J0-4K1L-2M3N-4O5P6Q7R8S9T",
-    "2D4E6F8A-0B2C-4D5E-6F7A-8B9C0D1E2F3A",
-    "9A8B7C6D-5E4F-4G3H-2I1J-0K9L8M7N6O5P",
-    "4D5E6F7A-8B9C-4D0E-1F2A-3B4C5D6E7F8G",
-    "C6D7E8F9-A0B1-4C2D-3E4F-5A6B7C8D9E0F",
-    "1A2B3C4D-5E6F-4G7H-8I9J-0K1L2M3N4O5P",
-    "6F7E8D9C-0A1B-4C2D-3E4F-5G6H7I8J9K0L",
-    "B8C9D0E1-F2A3-4B4C-5D6E-7F8A9B0C1D2E",
-    "3E5F7G9H-1I2J-4K3L-5M6N-7O8P9Q0R1S2T",
-    "8D9E0F1A-2B3C-4D5E-6F7G-8H9I0J1K2L3M",
-    "5C6D7E8F-9A0B-4C1D-2E3F-4G5H6I7J8K9L",
-    "0A1B2C3D-4E5F-4G6H-7I8J-9K0L1M2N3O4P",
-    "7D8E9F0A-1B2C-4D3E-5F6G-7H8I9J0K1L2M",
-    "2C3D4E5F-6G7H-4I8J-9K0L-1M2N3O4P5Q6R",
-    "9E0F1A2B-3C4D-4E5F-6G7H-8I9J-0K1L2M3N",
-    "4B5C6D7E-8F9A-4B0C-1D2E-3F4G5H6I7J8K",
-    "F1A2B3C4-D5E6-4F7G-8H9I-0J1K2L3M4N5O",
-    "6G7H8I9J-0K1L-4M2N-3O4P-5Q6R7S8T9U0V",
-    "1C2D3E4F-5G6H-4I7J-8K9L-0M1N2O3P4Q5R",
-    "8A9B0C1D-2E3F-4G4H-5I6J-7K8L9M0N1O2P",
-    "3F4G5H6I-7J8K-4L9M-0N1O-2P3Q4R5S6T7U",
-    "0D1E2F3G-4H5I-4J6K-7L8M-9N0O1P2Q3R4S",
-    "7A8B9C0D-1E2F-4G3H-4I5J-6K7L8M9N0O1P",
-    "2E3F4G5H-6I7J-4K8L-9M0N-1O2P3Q4R5S6T",
-    "9B0C1D2E-3F4G-4H5I-6J7K-8L9M-0N1O2P3Q",
-    "4C5D6E7F-8G9H-4I0J-1K2L-3M4N5O6P7Q8R",
-    "F5G6H7I8-J9K0-4L1M-2N3O-4P5Q6R7S8T9U",
-    "6H7I8J9K-0L1M-4N2O-3P4Q-5R6S7T8U9V0W",
-    "1D2E3F4G-5H6I-4J7K-8L9M-0N1O2P3Q4R5S",
-    "8B9C0D1E-2F3G-4H4I-5J6K-7L8M9N0O1P2Q",
-    "3G4H5I6J-7K8L-4M9N-0O1P-2Q3R4S5T6U7V",
-    "0E1F2G3H-4I5J-4K6L-7M8N-9O0P1Q2R3S4T",
-    "7B8C9D0E-1F2G-4H3I-4J5K-6L7M8N9O0P1Q",
-    "2F3G4H5I-6J7K-4L8M-9N0O-1P2Q3R4S5T6U",
-    "9C0D1E2F-3G4H-4I5J-6K7L-8M9N-0O1P2Q3R",
-    "4D5E6F7G-8H9I-4J0K-1L2M-3N4O5P6Q7R8S",
-    "G7H8I9J0-K1L2-4M3N-4O5P-6Q7R8S9T0U1V",
-    "7I8J9K0L-1M2N-4O3P-4Q5R-6S7T8U9V0W1X",
-    "2E3F4G5H-6I7J-4K8L-9M0N-1O2P3Q4R5S6T",
-    "9D0E1F2G-3H4I-4J5K-6L7M-8N9O-0P1Q2R3S",
-    "4E5F6G7H-8I9J-4K0L-1M2N-3O4P5Q6R7S8T",
-    "H8I9J0K1-L2M3-4N4O-5P6Q-7R8S9T0U1V2W",
-    "8J9K0L1M-2N3O-4P4Q-5R6S-7T8U9V0W1X2Y",
-    "3F4G5H6I-7J8K-4L9M-0N1O-2P3Q4R5S6T7U",
-    "0G1H2I3J-4K5L-4M6N-7O8P-9Q0R1S2T3U4V",
-    "9E0F1A2B-3C4D-4E5F-6G7H-8I9J-0K1L2M3N",
-    "4B5C6D7E-8F9A-4B0C-1D2E-3F4G5H6I7J8K",
-    "F1A2B3C4-D5E6-4F7G-8H9I-0J1K2L3M4N5O",
-    "6G7H8I9J-0K1L-4M2N-3O4P-5Q6R7S8T9U0V",
-    "1C2D3E4F-5G6H-4I7J-8K9L-0M1N2O3P4Q5R",
-    "8A9B0C1D-2E3F-4G4H-5I6J-7K8L9M0N1O2P",
-    "3F4G5H6I-7J8K-4L9M-0N1O-2P3Q4R5S6T7U",
-    "0D1E2F3G-4H5I-4J6K-7L8M-9N0O1P2Q3R4S",
-    "7A8B9C0D-1E2F-4G3H-4I5J-6K7L8M9N0O1P",
-    "2E3F4G5H-6I7J-4K8L-9M0N-1O2P3Q4R5S6T",
-    "9B0C1D2E-3F4G-4H5I-6J7K-8L9M-0N1O2P3Q",
-    "4C5D6E7F-8G9H-4I0J-1K2L-3M4N5O6P7Q8R",
-    "F5G6H7I8-J9K0-4L1M-2N3O-4P5Q6R7S8T9U",
-    "6H7I8J9K-0L1M-4N2O-3P4Q-5R6S7T8U9V0W",
-    "1D2E3F4G-5H6I-4J7K-8L9M-0N1O2P3Q4R5S",
-    "8B9C0D1E-2F3G-4H4I-5J6K-7L8M9N0O1P2Q",
-    "3G4H5I6J-7K8L-4M9N-0O1P-2Q3R4S5T6U7V",
-    "0E1F2G3H-4I5J-4K6L-7M8N-9O0P1Q2R3S4T",
-    "7B8C9D0E-1F2G-4H3I-4J5K-6L7M8N9O0P1Q",
-    "2F3G4H5I-6J7K-4L8M-9N0O-1P2Q3R4S5T6U",
-    "9C0D1E2F-3G4H-4I5J-6K7L-8M9N-0O1P2Q3R",
-    "4D5E6F7G-8H9I-4J0K-1L2M-3N4O5P6Q7R8S",
-    "G7H8I9J0-K1L2-4M3N-4O5P-6Q7R8S9T0U1V",
-    "7I8J9K0L-1M2N-4O3P-4Q5R-6S7T8U9V0W1X",
-    "2E3F4G5H-6I7J-4K8L-9M0N-1O2P3Q4R5S6T",
-    "9D0E1F2G-3H4I-4J5K-6L7M-8N9O-0P1Q2R3S",
-    "4E5F6G7H-8I9J-4K0L-1M2N-3O4P5Q6R7S8T",
-    "H8I9J0K1-L2M3-4N4O-5P6Q-7R8S9T0U1V2W",
-    "8J9K0L1M-2N3O-4P4Q-5R6S-7T8U9V0W1X2Y",
-    "3F4G5H6I-7J8K-4L9M-0N1O-2P3Q4R5S6T7U",
-    "0G1H2I3J-4K5L-4M6N-7O8P-9Q0R1S2T3U4V",
-    "5P6Q7R8S-9T0U-4V1W-2X3Y-4Z5A6B7C8D9E",
-    "A7B8C9D0-E1F2-4G3H-4I5J-6K7L8M9N0O1P",
-    "2Q3R4S5T-6U7V-4W8X-9Y0Z-1A2B3C4D5E6F",
-    "9G0H1I2J-3K4L-4M5N-6O7P-8Q9R-0S1T2U3V",
-    "4W5X6Y7Z-8A9B-4C0D-1E2F-3G4H5I6J7K8L",
-    "K7L8M9N0-O1P2-4Q3R-4S5T-6U7V8W9X0Y1Z",
-    "7M8N9O0P-1Q2R-4S3T-4U5V-6W7X8Y9Z0A1B",
-    "2K3L4M5N-6O7P-4Q8R-9S0T-1U2V3W4X5Y6Z",
-    "9H0I1J2K-3L4M-4N5O-6P7Q-8R9S-0T1U2V3W",
-    "4X5Y6Z7A-8B9C-4D0E-1F2G-3H4I5J6K7L8M",
-    "L7M8N9O0-P1Q2-4R3S-4T5U-6V7W8X9Y0Z1A",
-    "7O8P9Q0R-1S2T-4U3V-4W5X-6Y7Z8A9B0C1D",
-    "2L3M4N5O-6P7Q-4R8S-9T0U-1V2W3X4Y5Z6A",
-    "9I0J1K2L-3M4N-4O5P-6Q7R-8S9T-0U1V2W3X",
-    "4Y5Z6A7B-8C9D-4E0F-1G2H-3I4J5K6L7M8N",
-    "M7N8O9P0-Q1R2-4S3T-4U5V-6W7X8Y9Z0A1B",
-    "7P8Q9R0S-1T2U-4V3W-4X5Y-6Z7A8B9C0D1E",
-    "paid"
 }
+
+-- Also allow the literal word "paid" (case-insensitive, handled in ValidateKey)
 
 -- ================= ASSIGNED KEYS (Specific users) =================
 local ASSIGNED_KEYS = {
@@ -238,7 +140,7 @@ local keySubLabel = Instance.new("TextLabel", keyContent)
 keySubLabel.Size = UDim2.new(1, 0, 0, 16)
 keySubLabel.Position = UDim2.new(0, 0, 0, 26)
 keySubLabel.BackgroundTransparency = 1
-keySubLabel.Text = "Enter 'free' for free version or your premium key"
+keySubLabel.Text = "Enter your premium activation key /n ( paid is the key )"
 keySubLabel.Font = Enum.Font.Gotham
 keySubLabel.TextSize = 9
 keySubLabel.TextColor3 = COLORS.TextMuted
@@ -339,22 +241,25 @@ end)
 -- ================= KEY VALIDATION =================
 local function ValidateKey(inputKey)
     local trimmedKey = inputKey:gsub("^%s+", ""):gsub("%s+$", "")
-    
-    if trimmedKey:lower() == "free" then
-        return true, "free"
+
+    -- literal word "paid" (case-insensitive)
+    if trimmedKey:lower() == "paid" then
+        return true, "paid"
     end
-    
+
+    -- per-user assigned keys
     local playerName = LocalPlayer.Name
     if ASSIGNED_KEYS[playerName] and trimmedKey == ASSIGNED_KEYS[playerName] then
         return true, "paid"
     end
-    
+
+    -- hardcoded valid keys
     for _, validKey in ipairs(VALID_KEYS) do
         if trimmedKey == validKey then
             return true, "paid"
         end
     end
-    
+
     return false, nil
 end
 
@@ -365,7 +270,7 @@ local function ShowKeyError(text)
     TweenService:Create(keyError, TweenInfo.new(0.3), {
         TextTransparency = 0
     }):Play()
-    
+
     TweenService:Create(keyInputFrame, TweenInfo.new(0.05), {
         Position = UDim2.new(0, 2, 0, 50)
     }):Play()
@@ -435,7 +340,7 @@ local loaderSubTitle = Instance.new("TextLabel", loaderTitleBar)
 loaderSubTitle.Size = UDim2.new(0, 120, 0, 14)
 loaderSubTitle.Position = UDim2.new(0, 16, 0, 28)
 loaderSubTitle.BackgroundTransparency = 1
-loaderSubTitle.Text = "v0.13 Select Version"
+loaderSubTitle.Text = "v0.14 Select Version"
 loaderSubTitle.Font = Enum.Font.Gotham
 loaderSubTitle.TextSize = 9
 loaderSubTitle.TextColor3 = COLORS.TextMuted
@@ -514,69 +419,21 @@ local keyStatusText = Instance.new("TextLabel", leftSide)
 keyStatusText.Size = UDim2.new(1, 0, 0, 20)
 keyStatusText.Position = UDim2.new(0, 0, 0, 152)
 keyStatusText.BackgroundTransparency = 1
-keyStatusText.Text = "Free Key"
+keyStatusText.Text = "Key Activated"
 keyStatusText.Font = Enum.Font.GothamBold
 keyStatusText.TextSize = 11
-keyStatusText.TextColor3 = COLORS.Accent
+keyStatusText.TextColor3 = COLORS.Gold
 keyStatusText.TextXAlignment = Enum.TextXAlignment.Center
 keyStatusText.TextTransparency = 0
-
--- ================= FREE BUTTON =================
-local freeButton = Instance.new("TextButton", leftSide)
-freeButton.Size = UDim2.new(1, 0, 0, 44)
-freeButton.Position = UDim2.new(0, 0, 0, 178)
-freeButton.BackgroundColor3 = COLORS.Card
-freeButton.BorderSizePixel = 0
-freeButton.Text = ""
-freeButton.AutoButtonColor = false
-local freeCorner = Instance.new("UICorner", freeButton)
-freeCorner.CornerRadius = UDim.new(0, 6)
-
-local freeBorder = Instance.new("UIStroke", freeButton)
-freeBorder.Color = COLORS.BorderLight
-freeBorder.Thickness = 1
-freeBorder.Transparency = 0.3
-
-local freeLabel = Instance.new("TextLabel", freeButton)
-freeLabel.Size = UDim2.new(1, -20, 0, 18)
-freeLabel.Position = UDim2.new(0, 12, 0, 5)
-freeLabel.BackgroundTransparency = 1
-freeLabel.Text = "Free Menu"
-freeLabel.Font = Enum.Font.GothamBold
-freeLabel.TextSize = 12
-freeLabel.TextColor3 = COLORS.Text
-freeLabel.TextXAlignment = Enum.TextXAlignment.Left
-
-local freeSub = Instance.new("TextLabel", freeButton)
-freeSub.Size = UDim2.new(1, -20, 0, 14)
-freeSub.Position = UDim2.new(0, 12, 0, 24)
-freeSub.BackgroundTransparency = 1
-freeSub.Text = "Updated working"
-freeSub.Font = Enum.Font.Gotham
-freeSub.TextSize = 9
-freeSub.TextColor3 = COLORS.TextMuted
-freeSub.TextXAlignment = Enum.TextXAlignment.Left
-
-local freeCheck = Instance.new("TextLabel", freeButton)
-freeCheck.Size = UDim2.new(0, 20, 0, 20)
-freeCheck.Position = UDim2.new(1, -28, 0.5, -10)
-freeCheck.BackgroundTransparency = 1
-freeCheck.Text = ""
-freeCheck.Font = Enum.Font.Gotham
-freeCheck.TextSize = 14
-freeCheck.TextColor3 = COLORS.Success
-freeCheck.TextXAlignment = Enum.TextXAlignment.Center
-freeCheck.Visible = false
 
 -- ================= ULTIMATE BUTTON =================
 local ultimateButton = Instance.new("TextButton", leftSide)
 ultimateButton.Size = UDim2.new(1, 0, 0, 44)
-ultimateButton.Position = UDim2.new(0, 0, 0, 228)
+ultimateButton.Position = UDim2.new(0, 0, 0, 178)
 ultimateButton.BackgroundColor3 = COLORS.Card
 ultimateButton.BorderSizePixel = 0
 ultimateButton.Text = ""
 ultimateButton.AutoButtonColor = false
-ultimateButton.Visible = false
 local ultimateCorner = Instance.new("UICorner", ultimateButton)
 ultimateCorner.CornerRadius = UDim.new(0, 6)
 
@@ -615,67 +472,6 @@ ultimateCheck.TextSize = 14
 ultimateCheck.TextColor3 = COLORS.Gold
 ultimateCheck.TextXAlignment = Enum.TextXAlignment.Center
 ultimateCheck.Visible = false
-
--- ================= SILENT AIM BUTTON (GREYED OUT) =================
-local silentAimButton = Instance.new("TextButton", leftSide)
-silentAimButton.Size = UDim2.new(1, 0, 0, 44)
-silentAimButton.Position = UDim2.new(0, 0, 0, 278)
-silentAimButton.BackgroundColor3 = Color3.fromRGB(18, 18, 22)  -- Darker greyed background
-silentAimButton.BorderSizePixel = 0
-silentAimButton.Text = ""
-silentAimButton.AutoButtonColor = false
-silentAimButton.Visible = false
-silentAimButton.Active = true  -- Still clickable for feedback
-local silentAimCorner = Instance.new("UICorner", silentAimButton)
-silentAimCorner.CornerRadius = UDim.new(0, 6)
-
-local silentAimBorder = Instance.new("UIStroke", silentAimButton)
-silentAimBorder.Color = Color3.fromRGB(35, 35, 40)  -- Dim border
-silentAimBorder.Thickness = 1
-silentAimBorder.Transparency = 0.5
-
-local silentAimLabel = Instance.new("TextLabel", silentAimButton)
-silentAimLabel.Size = UDim2.new(1, -20, 0, 18)
-silentAimLabel.Position = UDim2.new(0, 12, 0, 5)
-silentAimLabel.BackgroundTransparency = 1
-silentAimLabel.Text = "Silent Aim"
-silentAimLabel.Font = Enum.Font.GothamBold
-silentAimLabel.TextSize = 12
-silentAimLabel.TextColor3 = COLORS.GreyedText  -- Greyed out text
-silentAimLabel.TextXAlignment = Enum.TextXAlignment.Left
-
-local silentAimSub = Instance.new("TextLabel", silentAimButton)
-silentAimSub.Size = UDim2.new(1, -20, 0, 14)
-silentAimSub.Position = UDim2.new(0, 12, 0, 24)
-silentAimSub.BackgroundTransparency = 1
-silentAimSub.Text = "Coming Soon"
-silentAimSub.Font = Enum.Font.Gotham
-silentAimSub.TextSize = 9
-silentAimSub.TextColor3 = Color3.fromRGB(85, 85, 95)  -- Very muted
-silentAimSub.TextXAlignment = Enum.TextXAlignment.Left
-
-local silentAimCheck = Instance.new("TextLabel", silentAimButton)
-silentAimCheck.Size = UDim2.new(0, 20, 0, 20)
-silentAimCheck.Position = UDim2.new(1, -28, 0.5, -10)
-silentAimCheck.BackgroundTransparency = 1
-silentAimCheck.Text = ""
-silentAimCheck.Font = Enum.Font.Gotham
-silentAimCheck.TextSize = 14
-silentAimCheck.TextColor3 = COLORS.GreyedText
-silentAimCheck.TextXAlignment = Enum.TextXAlignment.Center
-silentAimCheck.Visible = false
-
--- Lock icon on the greyed silent aim button
-local silentAimLock = Instance.new("TextLabel", silentAimButton)
-silentAimLock.Size = UDim2.new(0, 20, 0, 20)
-silentAimLock.Position = UDim2.new(1, -28, 0.5, -10)
-silentAimLock.BackgroundTransparency = 1
-silentAimLock.Text = ""
-silentAimLock.Font = Enum.Font.GothamBold
-silentAimLock.TextSize = 11
-silentAimLock.TextColor3 = Color3.fromRGB(90, 90, 100)
-silentAimLock.TextXAlignment = Enum.TextXAlignment.Center
-silentAimLock.Visible = true
 
 -- ================= RIGHT SIDE - CHANGELOG AREA =================
 local rightSide = Instance.new("Frame", loaderContent)
@@ -727,24 +523,9 @@ changelogContent.Position = UDim2.new(0, 0, 0, 0)
 changelogContent.BackgroundTransparency = 1
 changelogContent.Text = [[
 Next update:
-Relase
-v0.13
-  • Ultimate menu updated and enabled
-     UI overhaul
-     Removed loading screen (menu appears right away, features activate after a few seconds - known issue)
-     Improved performance
-     Silent Aim menu (Universal) started working on
-
-v0.12
-  • Added Silent Aim menu to the loader (coming soon)
-
-v0.11
-  • Loader UI updated
-  • Updating works without changing loadstring for user
-
-v0.10 
-  • Released Loader works as intented
-
+Not planned yet
+v1.0
+ • Relase
 ]]
 changelogContent.Font = Enum.Font.Gotham
 changelogContent.TextSize = 12
@@ -833,17 +614,17 @@ exitButton.MouseButton1Click:Connect(function()
     TweenService:Create(exitButton, TweenInfo.new(0.1), {
         BackgroundColor3 = Color3.fromRGB(255, 0, 0)
     }):Play()
-    
+
     task.wait(0.1)
-    
+
     TweenService:Create(loaderWindow, TweenInfo.new(0.3), {
         Size = UDim2.new(0, 0, 0, 0),
         Position = UDim2.new(0.5, 0, 0.5, 0)
     }):Play()
-    
+
     task.wait(0.3)
     loaderWindow.Visible = false
-    
+
     if keyWindow.Visible then
         TweenService:Create(keyWindow, TweenInfo.new(0.3), {
             Size = UDim2.new(0, 0, 0, 0),
@@ -852,44 +633,30 @@ exitButton.MouseButton1Click:Connect(function()
         task.wait(0.3)
         keyWindow.Visible = false
     end
-    
+
     gui:Destroy()
 end)
 
 -- ================= SELECTION STATE =================
 local selectedVersion = nil
-local keyType = "free"
+local keyType = "paid"
 
 -- ================= LOAD FUNCTIONS =================
-local function LoadFreeScript()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/anyucika192-eng/Undercover-devlopment/refs/heads/main/Free%20uc.lua"))()
-end
-
 local function LoadPaidScript()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/anyucika192-eng/inedthisfomyselfniher/refs/heads/main/Untitled-2.lua"))()
 end
 
 -- ================= LOAD BUTTON ACTION =================
 loadButton.MouseButton1Click:Connect(function()
-    if selectedVersion == "free" then
+    if selectedVersion == "ultimate" then
         TweenService:Create(loaderWindow, TweenInfo.new(0.3), {
             Size = UDim2.new(0, 0, 0, 0),
             Position = UDim2.new(0.5, 0, 0.5, 0)
         }):Play()
-        
+
         task.wait(0.3)
         loaderWindow.Visible = false
-        
-        LoadFreeScript()
-    elseif selectedVersion == "ultimate" then
-        TweenService:Create(loaderWindow, TweenInfo.new(0.3), {
-            Size = UDim2.new(0, 0, 0, 0),
-            Position = UDim2.new(0.5, 0, 0.5, 0)
-        }):Play()
-        
-        task.wait(0.3)
-        loaderWindow.Visible = false
-        
+
         LoadPaidScript()
     else
         -- Shake animation
@@ -907,88 +674,18 @@ loadButton.MouseButton1Click:Connect(function()
     end
 end)
 
--- ================= FREE BUTTON CLICK =================
-freeButton.MouseButton1Click:Connect(function()
-    selectedVersion = "free"
-    freeBorder.Color = COLORS.Success
-    freeBorder.Transparency = 0
-    freeButton.BackgroundColor3 = Color3.fromRGB(30, 50, 40)
-    freeCheck.Text = "✓"
-    freeCheck.Visible = true
-    
-    ultimateBorder.Color = COLORS.BorderLight
-    ultimateBorder.Transparency = 0.3
-    ultimateButton.BackgroundColor3 = COLORS.Card
-    ultimateCheck.Visible = false
-    
-    -- Silent Aim is greyed out, but visually deselect if it was somehow selected
-    silentAimBorder.Color = Color3.fromRGB(35, 35, 40)
-    silentAimBorder.Transparency = 0.5
-    silentAimButton.BackgroundColor3 = Color3.fromRGB(18, 18, 22)
-    silentAimCheck.Visible = false
-    
-    loadButton.TextTransparency = 0
-    loaderStatus.Text = "● Free Menu Selected"
-    loaderStatus.TextColor3 = COLORS.Success
-end)
-
-freeButton.MouseEnter:Connect(function()
-    if selectedVersion ~= "free" then
-        TweenService:Create(freeButton, TweenInfo.new(0.15), {
-            BackgroundColor3 = COLORS.CardHover
-        }):Play()
-    end
-end)
-
-freeButton.MouseLeave:Connect(function()
-    if selectedVersion ~= "free" then
-        TweenService:Create(freeButton, TweenInfo.new(0.15), {
-            BackgroundColor3 = COLORS.Card
-        }):Play()
-    end
-end)
-
 -- ================= ULTIMATE BUTTON CLICK =================
 ultimateButton.MouseButton1Click:Connect(function()
-    if keyType == "paid" then
-        selectedVersion = "ultimate"
-        ultimateBorder.Color = COLORS.Gold
-        ultimateBorder.Transparency = 0
-        ultimateButton.BackgroundColor3 = Color3.fromRGB(50, 45, 20)
-        ultimateCheck.Text = "✓"
-        ultimateCheck.Visible = true
-        
-        freeBorder.Color = COLORS.BorderLight
-        freeBorder.Transparency = 0.3
-        freeButton.BackgroundColor3 = COLORS.Card
-        freeCheck.Visible = false
-        
-        -- Silent Aim is greyed out
-        silentAimBorder.Color = Color3.fromRGB(35, 35, 40)
-        silentAimBorder.Transparency = 0.5
-        silentAimButton.BackgroundColor3 = Color3.fromRGB(18, 18, 22)
-        silentAimCheck.Visible = false
-        
-        loadButton.TextTransparency = 0
-        loaderStatus.Text = "● Ultimate Menu Selected"
-        loaderStatus.TextColor3 = COLORS.Gold
-    else
-        local originalText = ultimateSub.Text
-        ultimateSub.Text = "Premium only"
-        ultimateSub.TextColor3 = COLORS.Danger
-        
-        TweenService:Create(ultimateButton, TweenInfo.new(0.1), {
-            BackgroundColor3 = Color3.fromRGB(60, 30, 30)
-        }):Play()
-        
-        task.wait(0.3)
-        
-        TweenService:Create(ultimateButton, TweenInfo.new(0.2), {
-            BackgroundColor3 = COLORS.Card
-        }):Play()
-        ultimateSub.Text = originalText
-        ultimateSub.TextColor3 = COLORS.TextMuted
-    end
+    selectedVersion = "ultimate"
+    ultimateBorder.Color = COLORS.Gold
+    ultimateBorder.Transparency = 0
+    ultimateButton.BackgroundColor3 = Color3.fromRGB(50, 45, 20)
+    ultimateCheck.Text = "✓"
+    ultimateCheck.Visible = true
+
+    loadButton.TextTransparency = 0
+    loaderStatus.Text = "● Ultimate Menu Selected"
+    loaderStatus.TextColor3 = COLORS.Gold
 end)
 
 ultimateButton.MouseEnter:Connect(function()
@@ -1003,40 +700,6 @@ ultimateButton.MouseLeave:Connect(function()
             BackgroundColor3 = COLORS.Card
         }):Play()
     end
-end)
-
--- ================= SILENT AIM BUTTON CLICK (GREYED OUT) =================
-silentAimButton.MouseButton1Click:Connect(function()
-    -- Silent Aim is under development
-    local originalText = silentAimSub.Text
-    local originalColor = silentAimSub.TextColor3
-    silentAimSub.Text = "Under Development"
-    silentAimSub.TextColor3 = Color3.fromRGB(180, 140, 60)
-    
-    TweenService:Create(silentAimBorder, TweenInfo.new(0.1), {
-        Color = Color3.fromRGB(120, 90, 40)
-    }):Play()
-    
-    task.wait(0.8)
-    
-    TweenService:Create(silentAimBorder, TweenInfo.new(0.3), {
-        Color = Color3.fromRGB(35, 35, 40)
-    }):Play()
-    silentAimSub.Text = originalText
-    silentAimSub.TextColor3 = originalColor
-end)
-
-silentAimButton.MouseEnter:Connect(function()
-    -- Subtle hover feedback even though it's greyed out
-    TweenService:Create(silentAimButton, TweenInfo.new(0.15), {
-        BackgroundColor3 = Color3.fromRGB(22, 22, 26)
-    }):Play()
-end)
-
-silentAimButton.MouseLeave:Connect(function()
-    TweenService:Create(silentAimButton, TweenInfo.new(0.15), {
-        BackgroundColor3 = Color3.fromRGB(18, 18, 22)
-    }):Play()
 end)
 
 -- ================= UPDATE AVATAR =================
@@ -1060,49 +723,36 @@ end)
 keyUnlockBtn.MouseButton1Click:Connect(function()
     local inputKey = keyInput.Text
     local valid, key = ValidateKey(inputKey)
-    
+
     if valid then
         keyError.Visible = false
         keyType = key
-        
+
         TweenService:Create(keyWindow, TweenInfo.new(0.3), {
             Size = UDim2.new(0, 0, 0, 0),
             Position = UDim2.new(0.5, 0, 0.5, 0)
         }):Play()
-        
+
         task.wait(0.3)
         keyWindow.Visible = false
-        
-        if keyType == "free" then
-            keyStatusText.Text = "Free Key"
-            keyStatusText.TextColor3 = COLORS.Accent
-            ultimateButton.Visible = false
-            silentAimButton.Visible = false
-            freeButton.Position = UDim2.new(0, 0, 0, 178)
-            loaderStatus.Text = "● Free Mode"
-            loaderStatus.TextColor3 = COLORS.TextMuted
-        else -- "paid"
-            keyStatusText.Text = "Premium Key"
-            keyStatusText.TextColor3 = COLORS.Gold
-            ultimateButton.Visible = true
-            silentAimButton.Visible = true
-            freeButton.Position = UDim2.new(0, 0, 0, 178)
-            ultimateButton.Position = UDim2.new(0, 0, 0, 228)
-            silentAimButton.Position = UDim2.new(0, 0, 0, 278)
-            loaderStatus.Text = "● Premium Mode"
-            loaderStatus.TextColor3 = COLORS.Gold
-        end
-        
+
+        -- key status always shows "Key Activated"
+        keyStatusText.Text = "Key Activated"
+        keyStatusText.TextColor3 = COLORS.Gold
+
+        loaderStatus.Text = "● Select a version"
+        loaderStatus.TextColor3 = COLORS.TextMuted
+
         loaderWindow.Visible = true
         loaderWindow.Size = UDim2.new(0, 0, 0, 0)
         loaderWindow.Position = UDim2.new(0.5, 0, 0.5, 0)
-        
+
         TweenService:Create(loaderWindow, TweenInfo.new(0.4, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {
             Size = UDim2.new(0, 640, 0, 440),
             Position = UDim2.new(0.5, -320, 0.5, -220)
         }):Play()
     else
-        ShowKeyError("Invalid key! Use 'free' or a valid premium key.")
+        ShowKeyError("Invalid key! Enter a valid premium key.")
     end
 end)
 
